@@ -4,7 +4,7 @@
 
 Name:           hamcrest
 Version:        2.2
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        Library of matchers for building test expressions
 License:        BSD
 URL:            https://github.com/hamcrest/JavaHamcrest
@@ -40,7 +40,7 @@ Javadoc for %{name}.
 
 %prep
 %setup -q -n JavaHamcrest-%{upstream_version}
-%patch0 -p1
+%patch -P 0 -p1
 
 rm -rf docs
 rm -rf *gradle*
@@ -89,6 +89,12 @@ sed -i 's/\r//' LICENSE.txt
 %license LICENSE.txt
 
 %changelog
+* Thu Nov 21 2024 Marián Konček <mkoncek@redhat.com> - 2.2-9
+- Fix patch usage
+
+* Tue Nov 19 2024 Marián Konček <mkoncek@redhat.com> - 2.2-8
+- Rebuild with regenerated Requires on Java
+
 * Mon Aug 09 2021 Mohan Boddu <mboddu@redhat.com> - 2.2-7
 - Rebuilt for IMA sigs, glibc 2.34, aarch64 flags
   Related: rhbz#1991688
