@@ -4,11 +4,12 @@
 
 Name:           hamcrest
 Version:        2.2
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        Library of matchers for building test expressions
 License:        BSD
 URL:            https://github.com/hamcrest/JavaHamcrest
 BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 
 Source0:        https://github.com/hamcrest/JavaHamcrest/archive/v%{upstream_version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        https://repo1.maven.org/maven2/org/hamcrest/hamcrest/%{upstream_version}/hamcrest-%{upstream_version}.pom
@@ -89,6 +90,12 @@ sed -i 's/\r//' LICENSE.txt
 %license LICENSE.txt
 
 %changelog
+* Sat Nov 23 2024 Marián Konček <mkoncek@redhat.com> - 2.2-11
+- Add noarch to ExclusiveArch
+
+* Fri Nov 22 2024 Marián Konček <mkoncek@redhat.com> - 2.2-10
+- Disable building on i686
+
 * Thu Nov 21 2024 Marián Konček <mkoncek@redhat.com> - 2.2-9
 - Fix patch usage
 
