@@ -30,7 +30,7 @@
 
 Name:           hamcrest
 Version:        1.3
-Release:        29%{?dist}
+Release:        28%{?dist}
 Epoch:          0
 Summary:        Library of matchers for building test expressions
 License:        BSD
@@ -113,17 +113,12 @@ ln -sf $(build-classpath testng-jdk15) lib/integration/
 
 sed -i 's/\r//' LICENSE.txt
 
-# Set target to 1.6 to build with Java 11
-sed -i 's/target="1.5"/target="1.6"/' build.xml
-# Disable checking of remote javadoc links
-sed -i '/link offline/ d' build.xml
-
 %build
 export CLASSPATH=$(build-classpath qdox)
 export OPT_JAR_LIST="junit ant/ant-junit"
 # The unit-test goal is switched off as some tests fail with JDK 7
 # see https://github.com/hamcrest/JavaHamcrest/issues/30
-ant -Dant.build.javac.source=1.6 -Dversion=%{version} -Dbuild.sysclasspath=last clean core generator library bigjar javadoc
+ant -Dant.build.javac.source=1.5 -Dversion=%{version} -Dbuild.sysclasspath=last clean core generator library bigjar javadoc
 
 # inject OSGi manifests
 jar ufm build/%{name}-core-%{version}.jar %{SOURCE8}
@@ -163,12 +158,8 @@ cp -pr %{name}-examples $RPM_BUILD_ROOT%{_datadir}/%{name}/
 %{_datadir}/%{name}
 
 %changelog
-* Fri Jul 10 2020 Jiri Vanek <jvanek@redhat.com> - 0:1.3-29
-- Rebuilt for JDK-11, see https://fedoraproject.org/wiki/Changes/Java11
-
-* Wed Jun 24 2020 Roland Grunberg <rgrunber@redhat.com> - 0:1.3-28
-- Use source/target 1.6 to build against Java 11.
-- Disable checking of remote javadoc links.
+* Thu May 21 2020 Mat Booth <mat.booth@redhat.com> - 0:1.3-28
+- Avoid hard requirement on qdox/easymock
 
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
